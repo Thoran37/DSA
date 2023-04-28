@@ -31,7 +31,7 @@ struct node* createdll(struct node*f)
 					nn->llink=temp;
 					temp=nn;
 			  }	
-			printf("Continue create 1/0  ");
+			printf("Continue create 1/0 Â ");
 			scanf("%d",&k)
 		}while(k==1);
 	temp->rlink=NULL;
@@ -135,7 +135,7 @@ void insert()
 	int choice,k;
 	do
 	 {
-		 	printf("1.Beg 2.End 3.Pos  ");
+		 	printf("1.Beg 2.End 3.Pos Â ");
 		 	scanf("%d",&choice);
 		 	switch(choice)
 		 	 {
@@ -144,7 +144,7 @@ void insert()
 		 	 	 case 3: inspos();break;
 		 	 	 default: printf("Wrong choice");
 			 }
-			printf("Continue insert 1/0  ");
+			printf("Continue insert 1/0 Â ");
 			scanf("%d",&k);	
 		}while(k==1);
 }
@@ -193,7 +193,7 @@ void del()
 	int choice,k;
 	do
 	 {
-		 	printf("1.Beg 2.End 3.Pos  ");
+		 	printf("1.Beg 2.End 3.Pos Â ");
 		 	scanf("%d",&choice);
 		 	switch(choice)
 		 	 {
@@ -202,14 +202,14 @@ void del()
 		 	 	 case 3: delpos();break;
 		 	 	 default: printf("Wrong choice");
 			 }
-			printf("Continue delete 1/0  ");
+			printf("Continue delete 1/0 Â ");
 			scanf("%d",&k);	
 		}while(k==1);
 }
 int main()
 {
 	int choice,k,f,ele;
-	printf("1.create 2.insert 3.delete 4.search 5.dislpay  ");
+	printf("1.create 2.insert 3.delete 4.search 5.dislpay Â ");
 	do
 	 {
 		 scanf("%d",&choice);
@@ -221,7 +221,7 @@ int main()
 			 	 case 4: search();break;
 			   case 5: display(first);break;
 			 }
-	   printf("Continue main 1/0  ");
+	   printf("Continue main 1/0 Â ");
 	   scanf("%d",&k);
 	 }while(k==1);
 }

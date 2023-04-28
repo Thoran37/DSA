@@ -23,7 +23,7 @@ void create()
 			    temp->link=nn;
 					temp=nn;
 			  }	
-			printf("Continue create 1/0  ");
+			printf("Continue create 1/0 Â ");
 			scanf("%d",&k);
 		}while(k==1);
 	temp->link=NULL;

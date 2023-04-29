@@ -2,11 +2,10 @@
 #include<stdlib.h>
 struct node
 {
-	struct node *llink;
 	int x;
-	struct node *rlink;
+	struct node *link;
 }*first=NULL,*temp,*nn,*last;
-struct node* createdll(struct node*f)
+struct node* createcll(struct node*f)
 {
 	char ch;
 	do

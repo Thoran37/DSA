@@ -2,17 +2,17 @@
 #include<stdlib.h>
 struct node
 {
-	int x,h;
+	int x,pow;
 	struct node *link;
-}*first1=NULL,*temp,*nn,*first2=NULL;
+}*first1=NULL,*temp,*nn,*first2=NULL,*nnn,*rs=NULL;
 struct node* create(struct node*f)
 {
-	int k,i=0;
+	int k,i;
 	do
 	  {
 	  	nn=(struct node*)malloc(sizeof(struct node));
-			printf("Enter coefficients  ");
-			scanf("%d",&nn->x);
+			printf("Enter coefficients and power ");
+			scanf("%d%d",&nn->x,&nn->pow);
 	  	if(f==NULL)
 	  	  {
 	  	  	f=nn;
@@ -23,47 +23,82 @@ struct node* create(struct node*f)
 			    temp->link=nn;
 					temp=nn;
 			  }	
-      nn->h=i;
-      i++;  
+      
 			printf("Continue coefficients 1/0  ");
 			scanf("%d",&k);
 		}while(k==1);
 	temp->link=NULL;
 	return f;
 }
+void display(struct node*f)
+{
+	for(temp=f;temp!=NULL;temp=temp->link)
+	  printf("%dx^%d+",temp->x,temp->pow); 
+}
 void add(struct node*a,struct node*b)
 {
   struct node*t;
-  int flag=0;
-  while(1)
+  while(a!=NULL && b!=NULL)
     {
-      if(a->h==b->h)
-        a->x=a->x+b->x;
-      if(a->link==NULL)
-        t=a;  
+			nnn=(struct node*)malloc(sizeof(struct node));
+			if(a->pow>b->pow)
+			  {
+			  	nnn->pow=a->pow;
+			  	nnn->x=a->x;
+			  	a=a->link;
+				}
+      else
+			   if(b->pow>a->pow)
+				   {nnn->pow=b->pow;
+			  	nnn->x=b->x;
+			  	b=b->link;
+					 }	
+				else
+				  {
+				  	nnn->pow=a->pow;
+			  	nnn->x=a->x+b->x;
+			  	a=a->link;
+			  	b=b->link;
+								}		  
+			if(rs==NULL)
+			  {
+				  rs=nnn; 
+			    temp=rs;
+			  }
+			else
+			  {
+				 temp->link=nnn;
+				 temp=nnn;	
+		
+       }
+       temp->link=NULL;
+  }
+  while(a!=NULL)
+    {
+      nnn=(struct node*)malloc(sizeof(struct node));
+      temp->link=nnn;
+      temp=nnn;
+      temp->x=a->x;
+      temp->pow=a->pow;
       a=a->link;
-      b=b->link;  
-      if(a==NULL || b==NULL)
-        break;
     }
   while(b!=NULL)
     {
-      nn=(struct node*)malloc(sizeof(struct node));
-      t->link=nn;
-      nn->x=b->x;
-      nn->h=b->h;
+      nnn=(struct node*)malloc(sizeof(struct node));
+      temp->link=nnn;
+      temp=nnn;
+      temp->x=b->x;
+      temp->pow=b->pow;
       b=b->link;
-      flag=1;
     }
-  if(flag==1)  
-    t->link->link=NULL;  
+	 temp->link=NULL;
 }
 int main()
 {
   first1=create(first1);
+   display(first1);
   first2=create(first2);
+  display(first2);
   add(first1,first2);
-  printf("%d",first1->x);
-  for(temp=first1->link;temp!=NULL;temp=temp->link)
-    printf("+%dx^%d",temp->x,temp->h);
+  display(rs);
 }

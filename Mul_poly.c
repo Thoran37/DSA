@@ -2,63 +2,83 @@
 #include<stdlib.h>
 struct node
 {
-	int x,h;
-	struct node *link;
-}*first1=NULL,*temp,*nn,*first2=NULL,*nnn,*rs=NULL;
+  int x,h;
+  struct node*link;
+}*first=NULL,*second=NULL,*result=NULL,*temp,*nn;
 struct node* create(struct node*f)
 {
-	int k,i=0;
-	do
-	  {
-	  	nn=(struct node*)malloc(sizeof(struct node));
-			printf("Enter coefficients  ");
-			scanf("%d",&nn->x);
-	  	if(f==NULL)
-	  	  {
-	  	  	f=nn;
-	  	  	temp=nn;
-				}
-			else
-			  {
-			    temp->link=nn;
-					temp=nn;
-			  }	
-      nn->h=i;
-      i++;  
-			printf("Continue coefficients 1/0  ");
-			scanf("%d",&k);
-		}while(k==1);
-	temp->link=NULL;
-	return f;
+  while(1)
+    {
+      nn=(struct node*)malloc(sizeof(struct node));
+      printf("Enter coeff and power  ");
+      scanf("%d",&nn->x);
+      if(nn->x==-1)
+        break;
+      scanf("%d",&nn->h);  
+      if(f==NULL)
+        {
+          f=nn;
+          temp=nn;
+        }
+      else
+        {
+          temp->link=nn;
+          temp=nn;
+        }
+      temp->link=NULL;  
+    }
+  return f;  
 }
 void display(struct node*f)
 {
-	for(temp=f;temp!=NULL;temp=temp->link)
-	  printf("%dx^%d+",temp->x,temp->h); 
+  for(temp=f;temp->link!=NULL;temp=temp->link)
+    printf("%dx^%d+",temp->x,temp->h);
+  printf("%dx^%d",temp->x,temp->h);
 }
-void mul(struct node*a,struct node*b)
+void poly_mul(struct node*a,struct node*b)
 {
-	struct node*t,*r;
-	for(temp=b;temp!=NULL;temp=temp->link)
-	  {
-	    nnn=(struct node*)malloc(sizeof(struct node));
-	    if(rs==NULL)
-	      rs=nnn;
-	  	for(t=a;t!=NULL;t=t->link)
-	  	  {
-	  	  	nnn->x=t->x*temp->x;
-	    	  nnn->h=t->h+temp->h;
-				}
-			if(r!=nnn)
-			  r->link=nnn;
-			r=nnn;		
-		}
-	r->link=NULL;	
+  struct node*p,*q,*t;
+  for(p=b;p!=NULL;p=p->link)
+    {
+      for(q=a;q!=NULL;q=q->link)
+        {
+          nn=(struct node*)malloc(sizeof(struct node));
+          if(result==NULL)
+            {
+              result=nn;
+              temp=nn;
+            }
+          else 
+            {
+              temp->link=nn;
+              temp=nn;
+            }  
+          temp->x=p->x*q->x;
+          temp->h=p->h+q->h;
+        }
+      temp->link=NULL;  
+    }
+  for(p=result;p!=NULL;p=p->link)
+    for(q=p->link;q!=NULL;) 
+      { 
+        if(p->h==q->h)
+          {
+            p->x+=q->x;
+            p->link=q->link;
+            t=q;
+            q=q->link;
+            t->link=NULL;
+            free(t);
+          }
+        else
+          q=q->link;
+      }  
 }
 int main()
 {
-	first1=create(first1);
-	first2=create(first2);
-	mul(first1,first2);
-	display(rs);
+  printf("Enter -1 to stop\n");
+  first=create(first);
+  second=create(second);
+  poly_mul(first,second);
+  display(result);
 }

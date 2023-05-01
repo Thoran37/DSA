@@ -34,7 +34,7 @@ void display(struct node*f)
   for(temp=f;temp!=NULL;temp=temp->link)
     printf("%d ",temp->x);
 }
-struct node* del(struct node*f)
+struct node* deque(struct node*f)
 {
   if(f==NULL)
     printf("LQ is empty\n");
@@ -48,7 +48,7 @@ struct node* del(struct node*f)
     }
   return f;  
 }  
-void ins(int k)
+void enque(int k)
 {
   nn=(struct node*)malloc(sizeof(struct node));
   if(first==NULL)
@@ -76,10 +76,10 @@ int main()
       switch(choice)
         {
           case 1: first=create(first);break;
-          case 2: first=del(first);break;
+          case 2: first=deque(first);break;
           case 3: printf("Enter element to insert  ");
                   scanf("%d",&k);
-                  ins(k);break;
+                  enque(k);break;
           case 4: display(first);break;        
           default: printf("Wrong choice\n");        
         }

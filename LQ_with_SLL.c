@@ -29,6 +29,13 @@ struct node* create(struct node*f)
     }
   return f;  
 }
+int count(struct node*f)
+{
+  int cnt=0;
+  for(temp=f;temp!=NULL;temp=temp->link)
+    cnt++;
+  return cnt; 
+}
 void display(struct node*f)
 {
   for(temp=f;temp!=NULL;temp=temp->link)

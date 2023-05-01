@@ -88,7 +88,7 @@ int main()
                   scanf("%d",&k);
                   enque(k);break;
           case 4: display(first);break;   
-          case 5: printf("No.of elements = %d",count());break;
+          case 5: printf("No.of elements = %d",count(first));break;
           default: printf("Wrong choice\n");        
         }
       printf("Continue 1/0  ");

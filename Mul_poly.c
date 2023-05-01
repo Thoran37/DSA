@@ -6,7 +6,7 @@ struct node
   struct node*link;
 }*first=NULL,*second=NULL,*result=NULL,*temp,*nn;
 struct node* create(struct node*f)
-{
+{ 
   while(1)
     {
       nn=(struct node*)malloc(sizeof(struct node));
@@ -59,12 +59,13 @@ void poly_mul(struct node*a,struct node*b)
       temp->link=NULL;  
     }
   for(p=result;p!=NULL;p=p->link)
-    for(q=p->link;q!=NULL;) 
-      { 
+    for(q=p->link;q!=NULL;)  
+      {  
         if(p->h==q->h)
           {
             p->x+=q->x;
-            p->link=q->link;
+            for(temp=p;temp->link!=q;temp=temp->link);
+            temp->link=q->link;
             t=q;
             q=q->link;
             t->link=NULL;

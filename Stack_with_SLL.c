@@ -5,8 +5,9 @@ struct node
   int x;
   struct node*link;
 }*first=NULL,*temp,*nn,*last=NULL;
-struct node* create(struct node*f)
+void create()
 { 
+	printf("Enter -1 to stop\n");
   while(1)
     {
       nn=(struct node*)malloc(sizeof(struct node));
@@ -14,36 +15,30 @@ struct node* create(struct node*f)
       scanf("%d",&nn->x);
       if(nn->x==-1)
         break;
-      if(f==NULL)
+      if(first==NULL)
         {
-          f=nn;
-          temp=nn;
+        	first=nn;
+          last=nn;
+          last->link=NULL;
         }
       else
         {
-          temp->link=nn;
-          temp=nn;
+          nn->link=last;
+          last=nn;
         }
-      temp->link=NULL;  
-      last=temp;
     }
-  return f;  
 }
 int count(struct node*f)
 {
   int cnt=0;
-  for(temp=f;temp!=NULL;temp=temp->link)
+  for(temp=last;temp!=NULL;temp=temp->link)
     cnt++;
   return cnt;  
 }
 void display(struct node*f)
 {
-  int size=count(f);
-  int i,a[size];
-  for(temp=f,i=0;temp!=NULL;temp=temp->link,i++)
-    a[i]=temp->x;
-  for(int j=i-1;j>=0;j--)
-    printf("%d ",a[j]);  
+  for(temp=last;temp!=NULL;temp=temp->link)
+    printf("%d ",temp->x);  
 }
 void pop(struct node*f)
 {
@@ -51,11 +46,11 @@ void pop(struct node*f)
     printf("LQ is empty\n");
   else 
     {
-      for(temp=first;temp!=last;temp=temp->link);
+      temp=last;
+      last=last->link;
       temp->link=NULL;
       printf("Deleted element is %d\n",temp->x);
-      free(last);
-      last=temp;
+      free(temp);
     }  
 }  
 void push(int k)
@@ -64,16 +59,14 @@ void push(int k)
   if(first==NULL)
     {
       first=nn;
-      nn->x=k;
-      first->link=NULL;
       last=nn;
+      last->link=NULL;
     }
   else
     {  
-      last->link=nn;
+      nn->link=last;
       nn->x=k;
       last=nn;
-      last->link=NULL;
     }
 }
 int main()
@@ -85,7 +78,7 @@ int main()
       scanf("%d",&choice);
       switch(choice)
         {
-          case 1: first=create(first);break;
+          case 1: create();break;
           case 2: pop(first);break;
           case 3: printf("Enter element to insert  ");
                   scanf("%d",&k);

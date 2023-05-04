@@ -20,7 +20,7 @@ void display()
 void pop()
 {
   if(f==NULL)
-    printf("LQ is empty\n");
+    printf("Stack is empty\n");
   else 
     {
       temp=top;
@@ -36,15 +36,14 @@ void push(int k)
   if(first==NULL)
     {
       top=nn;
-		  nn->x=k;
       top->link=NULL;
     }
   else
     {  
       nn->link=top;
-      nn->x=k;
       top=nn;
     }
+	nn->x=k;
 }
 int main()
 {

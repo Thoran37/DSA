@@ -4,9 +4,10 @@ struct node
 {
   int x;
   struct node*link;
-}*first=NULL,*temp,*nn,*last=NULL;
+}*front=NULL,*temp,*nn,*rear=NULL;
 struct node* create(struct node*f)
 { 
+	printf("Enter -1 to stop\n");
   while(1)
     {
       nn=(struct node*)malloc(sizeof(struct node));
@@ -25,7 +26,7 @@ struct node* create(struct node*f)
           temp=nn;
         }
       temp->link=NULL;  
-      last=temp;
+      rear=temp;
     }
   return f;  
 }
@@ -58,19 +59,19 @@ struct node* deque(struct node*f)
 void enque(int k)
 {
   nn=(struct node*)malloc(sizeof(struct node));
-  if(first==NULL)
+  if(front==NULL)
     {
-      first=nn;
+      front=nn;
       nn->x=k;
-      first->link=NULL;
-      last=nn;
+      front->link=NULL;
+      rear=nn;
     }
   else
     {  
-      last->link=nn;
+      rear->link=nn;
       nn->x=k;
-      last=nn;
-      last->link=NULL;
+      rear=nn;
+      rear->link=NULL;
     }
 }
 int main()
@@ -82,13 +83,13 @@ int main()
       scanf("%d",&choice);
       switch(choice)
         {
-          case 1: first=create(first);break;
-          case 2: first=deque(first);break;
+          case 1: front=create(front);break;
+          case 2: front=deque(front);break;
           case 3: printf("Enter element to insert  ");
                   scanf("%d",&k);
                   enque(k);break;
-          case 4: display(first);break;   
-          case 5: printf("No.of elements = %d",count(first));break;
+          case 4: display(front);break;   
+          case 5: printf("No.of elements = %d",count(front));break;
           default: printf("Wrong choice\n");        
         }
       printf("Continue 1/0  ");

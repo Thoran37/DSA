@@ -13,7 +13,15 @@ void well()
   printf("Enter data  ");
   scanf("%d",&nn->x);
 }
-struct node* createtree(struct node*f)
+void push(int k)
+{
+  stack[++top]=k;
+}
+int pop()
+{
+  return stack[top--];
+}
+struct node* create_tree(struct node*f)
 {
   char ch,s;
   do
@@ -49,7 +57,15 @@ struct node* createtree(struct node*f)
 }
 void display_inorder(struct node*f)
 {
-  int *ptr;
+  struct node *ptr;
   ptr=root;
   push(NULL);
+  while(ptr!=NULL)
+    {
+      push(ptr->x);
+      ptr=ptr->llink;
+    }   
+  printf("%d ",ptr->x);
+  if(ptr->rlink!=NULL)
+    
 }

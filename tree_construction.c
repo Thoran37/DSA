@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+int top=-1,stack[15];
 struct node
 {
   struct node*llink;
@@ -46,7 +47,9 @@ struct node* createtree(struct node*f)
       scanf("%c",&s); 
     }while(s=='y');
 }
-void display(struct node*f)
+void display_inorder(struct node*f)
 {
-  
+  int *ptr;
+  ptr=root;
+  push(NULL);
 }

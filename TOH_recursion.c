@@ -7,9 +7,9 @@ void TOH(int disks,char S,char D,char A)
 	else
 	  {
 	    TOH(disks-1,S,A,D);
-			printf("moved from %c to %c\n",S,D);
-			TOH(disks-1,A,D,S);	
-		}  
+	    printf("moved from %c to %c\n",S,D);
+	    TOH(disks-1,A,D,S);	
+	  }  
 }
 int main()
 {

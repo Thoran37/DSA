@@ -15,20 +15,23 @@ void well()
 }
 void push(struct node *k)
 {
-  stack[++top]=k;
+	top++;
+  *(stack+top)=*k;
 }
 struct node* pop()
 {
-  return stack[top--];
+	struct node *p=(stack+top);
+  top--;
+  return p;
 }
 struct node* create_tree(struct node*f)
 {
   char ch,s;
   do
     {
-      well();
       if(root==NULL)
         {
+        	well();
           root=nn;
           temp=nn;
           temp->llink=NULL;
@@ -37,7 +40,9 @@ struct node* create_tree(struct node*f)
       else
         {
           printf("Enter side  ");
-          scanf("%c",&ch);
+          fflush(stdin);
+          ch=getchar();
+          well();
           if(ch=='l')
             {
               temp->llink=nn;
@@ -52,7 +57,8 @@ struct node* create_tree(struct node*f)
             printf("Wrong side\n"); 
         }  
       printf("Continue main y/n  ");
-      scanf("%c",&s); 
+			fflush(stdin); 
+      s=getchar();
     }while(s=='y');
 }
 void display_inorder(struct node*f)
@@ -62,7 +68,7 @@ void display_inorder(struct node*f)
   push(NULL);
   while(ptr!=NULL)
     {
-      push(ptr->x);
+      push(ptr);
       ptr=ptr->llink;
     }   
   if(ptr==NULL)
@@ -71,4 +77,9 @@ void display_inorder(struct node*f)
     printf("%d ",ptr->x);
     ptr=ptr->rlink;
   }   
+}
+int main()
+{
+	root=create_tree(root);
+	display_inorder(root);
 }

@@ -65,7 +65,10 @@ void display_inorder(struct node*f)
       push(ptr->x);
       ptr=ptr->llink;
     }   
-  printf("%d ",ptr->x);
-  if(ptr->rlink!=NULL)
-    
+  if(ptr==NULL)
+  {
+    ptr=pop();
+    printf("%d ",ptr->x);
+    ptr=ptr->rlink;
+  }   
 }

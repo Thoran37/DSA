@@ -1,23 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
-int top=-1,stack[15];
+int top=-1;
 struct node
 {
   struct node*llink;
   int x;
   struct node* rlink;
-}*root=NULL,*temp,*nn;
+}*root=NULL,*temp,*nn,*stack;
 void well()
 {
   nn=(struct node*)malloc(sizeof(struct node));
   printf("Enter data  ");
   scanf("%d",&nn->x);
 }
-void push(int k)
+void push(struct node *k)
 {
   stack[++top]=k;
 }
-int pop()
+struct node* pop()
 {
   return stack[top--];
 }

@@ -61,23 +61,16 @@ struct node *createbt(struct node *t)
 }
 void in_non(struct node *f)
 {
-  ptr=root;
+  ptr=f;
   push(NULL);
   while(ptr!=NULL)
     {
-      push(ptr);
-      ptr=ptr->l;
-      if(ptr==NULL)
-			  {
-			    ptr=pop();
-			    printf("%c ",ptr->c);
-			    ptr=ptr->r;
-			  }
+      	
 		}
 }
 void pre_non(struct node *t)
 {
-	ptr=root;
+	ptr=t;
 	push(NULL);
 	while(ptr!=NULL)
 	  {
@@ -89,29 +82,68 @@ void pre_non(struct node *t)
     	  ptr=pop();
 		}
 }
-void post_non(struct node *t)
+/*void post_non(struct node *t)
 {
-	ptr=root;
+	ptr=t;
+	push(NULL);
+	while(stack[top]!=NULL)
+	  {
+			while(ptr!=NULL)
+				{
+					push(ptr);
+					if(ptr->r!=NULL)
+						push(-(ptr->r));
+					ptr=ptr->l;
+				}
+			ptr=pop();
+			while(ptr>0)
+				{
+					printf("%c ",ptr->c);
+					ptr=pop();
+				}	
+			if(ptr<0)
+				ptr=-ptr;	
+		}
+}*/
+int countln(struct node *t)
+{
+	int cnt=0;
+	ptr=t;
 	push(NULL);
 	while(ptr!=NULL)
-    {
-      push(ptr);
+	  {
+	  	if((ptr->r==NULL) && (ptr->l==NULL))
+				cnt++;
+	  	if(ptr->r!=NULL)
+        push(ptr->r);
       ptr=ptr->l;
-      if(ptr==NULL)
-		    ptr=pop();
-			if(ptr->r!=NULL)
-			  ptr=ptr->r;
-			else
-			  {
-			    printf("%c ",ptr);  
-			    ptr=pop();
-			  }
+	  	if(ptr==NULL)
+    	  ptr=pop();
 		}
+	return cnt;	
+}
+int countnln(struct node *t)
+{
+	int cnt=0;
+	ptr=t;
+	push(NULL);
+	while(ptr!=NULL)
+	  {
+	  	if((ptr->r==NULL) && (ptr->l==NULL));
+			else
+				cnt++;
+	  	if(ptr->r!=NULL)
+        push(ptr->r);
+      ptr=ptr->l;
+	  	if(ptr==NULL)
+    	  ptr=pop();
+		}
+	return cnt;	
 }
 int main()
 {
 	int k;
-	printf("1.create 2.inorder 3.preorder 4.postorder 5.in_non 6.pre_non 7.post_non 8.height 9.leaf 10.no_leaf  ");
+	printf("1.create 2.inorder 3.preorder 4.postorder 5.in_non 6.pre_non 7.post_non 8.height 9.leaf 10.non_leaf  ");
 	do
 	  {
 	  	scanf("%d",&k);
@@ -123,10 +155,10 @@ int main()
 	  	  	//case 4: postorder(root);break;
 	  	  	case 5: in_non(root);break;
 	  	  	case 6: pre_non(root);break;
-	  	  	case 7: post_non(root);break;
+	  	  	//case 7: post_non(root);break;
 	  	  	//case 8: printf("Height = %d\n",height());break;
-	  	  	//case 9: printf("No.of leaf node = %d\n",countln());break;
-	  	  	//case 10: printf("No.of non leaf node = %d\n",countnln());break;*/
+	  	  	case 9: printf("No.of leaf node = %d\n",countln(root));break;
+	  	  	case 10: printf("No.of non leaf node = %d\n",countnln(root));break;
 	  	  	default: printf("Wrong choice\n");
 				}
 			printf("Continue main 1/0  ");

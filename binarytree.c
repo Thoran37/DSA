@@ -5,11 +5,15 @@ struct node
 {
 	struct node *l,*r;
 	char c;
-}*root=NULL,*nn,*ptr;
+}*root=NULL,*nn,*ptr,*stack[size];
 
-struct node *stack[size];
+struct traversal
+{
+	int k;
+	struct node *add;
+}*temp,*stack1[size];
 
-int top=-1;
+int top=-1,top1=-1;
 
 void well()
 {
@@ -65,7 +69,14 @@ void in_non(struct node *f)
   push(NULL);
   while(ptr!=NULL)
     {
-      	
+      push(ptr);
+			ptr=ptr->l;
+			while(ptr==NULL)
+			  {
+			  	ptr=pop();
+			    printf("%c ",ptr->c);	
+			    ptr=ptr->r;
+				}	
 		}
 }
 void pre_non(struct node *t)
@@ -82,29 +93,40 @@ void pre_non(struct node *t)
     	  ptr=pop();
 		}
 }
-/*void post_non(struct node *t)
+void push1(int l,struct node *f)
 {
+	stack1[++top1]->k=l;
+	stack1[top1]->add=f;
+}
+struct traversal* pop1()
+{
+	return stack1[top1--];
+}
+void post_non(struct node *t)
+{	
 	ptr=t;
-	push(NULL);
-	while(stack[top]!=NULL)
+	push1(1,NULL);
+	do
 	  {
 			while(ptr!=NULL)
-				{
-					push(ptr);
-					if(ptr->r!=NULL)
-						push(-(ptr->r));
-					ptr=ptr->l;
-				}
-			ptr=pop();
-			while(ptr>0)
-				{
-					printf("%c ",ptr->c);
-					ptr=pop();
+			 {
+			 	 push1(1,ptr);
+			 	 if(ptr->r!=NULL)
+			 	   push1(0,ptr->r);
+			 	 ptr=ptr->l;
+			 }
+		  temp=pop1();
+		  ptr=temp->add;
+			while(temp->k==1)
+			  {
+			    printf("%c ",ptr->c);
+					temp=pop1();
+		      ptr=temp->add;	
 				}	
-			if(ptr<0)
-				ptr=-ptr;	
-		}
-}*/
+			if(temp->k==0)
+				push1(1,ptr);	
+		}while(stack1[top1]!=NULL);
+}
 int countln(struct node *t)
 {
 	int cnt=0;
@@ -140,6 +162,10 @@ int countnln(struct node *t)
 		}
 	return cnt;	
 }
+int height(struct node *t)
+{
+	
+}
 int main()
 {
 	int k;
@@ -155,7 +181,7 @@ int main()
 	  	  	//case 4: postorder(root);break;
 	  	  	case 5: in_non(root);break;
 	  	  	case 6: pre_non(root);break;
-	  	  	//case 7: post_non(root);break;
+	  	  	case 7: post_non(root);break;
 	  	  	//case 8: printf("Height = %d\n",height());break;
 	  	  	case 9: printf("No.of leaf node = %d\n",countln(root));break;
 	  	  	case 10: printf("No.of non leaf node = %d\n",countnln(root));break;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <bool.h>
 #define size 100
 struct node
   {
@@ -55,7 +56,65 @@ struct node* pop()
 {
 	return stack[top--];
 }
-void display()
+bool find(int k)
+{
+  temp=root;
+  push(NULL);
+  while(temp!=NULL)
+    {
+      push(temp);
+			temp=temp->l;
+			while(temp==NULL)
+			  {
+			  	temp=pop();
+			    if(temp->x==k)
+            return TRUE;
+			    temp=temp->r;
+				}	
+		}
+  return FALSE;  
+}
+int del(int k)
+{
+  int flag;
+  temp=root;
+  push(NULL);
+  while(temp!=NULL)
+    {
+      push(temp);
+      ptr=temp;
+			temp=temp->l;
+      flag=0;
+			while(temp==NULL)
+			  {
+			  	temp=pop();
+			    if(temp->x==k)
+            {
+              if((temp->l==NULL) && (temp->r==NULL))
+                {
+                  if(flag==0)
+                    ptr->l=NULL;
+                  else
+                    ptr->r=NULL;  
+                  printf("Deleted element is %d\n",temp->x);    
+                }
+              else if((temp->l==NULL) && (temp->r!=NULL) && (ptr->r==temp))
+                ptr->r=temp->r;
+              else if((temp->l!=NULL) && (temp->r==NULL) && (ptr->r==temp))
+                ptr->r=temp->l;
+              else if((temp->l==NULL) && (temp->r!=NULL) && (ptr->l==temp))  
+                ptr->l=temp->r;  
+              else if((temp->l!=NULL) && (temp->r==NULL) && (ptr->l==temp))  
+                ptr->l=temp->l;    
+                
+            }
+          ptr=temp;
+			    temp=temp->r;
+          flag=1;
+				}	
+		}
+}
+void inorder()
 {
   temp=root;
   push(NULL);
@@ -81,7 +140,7 @@ int main()
       switch(k)
         {
           case 1: insert();break;
-          case 2: display();break;
+          case 2: inorder();break;
           default: printf("Invalid choice\n");
         }
       printf("Continue main 1/0  ");

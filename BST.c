@@ -20,26 +20,29 @@ void insert()
       scanf("%d",&nn->x);
       if(root==NULL)
         root=nn;
-      temp=root;
-      while(temp!=NULL)
-        {
-          if(nn->x>temp->x)
-            {
-              ptr=temp;
-              temp=temp->r;
-              flag=1;
-            }
-          else
-            {
-              ptr=temp;
-              temp=temp->l;
-              flag=2;
-            }  
-        }
-      if(flag==1)
-        ptr->r=nn;
       else
-        ptr->l=nn;  
+        {
+          temp=root;
+          while(temp!=NULL)
+            {
+              if(nn->x>temp->x)
+                {
+                  ptr=temp;
+                  temp=temp->r;
+                  flag=1;
+                }
+              else
+                {
+                  ptr=temp;
+                  temp=temp->l;
+                  flag=2;
+                }  
+            }
+          if(flag==1)
+            ptr->r=nn;
+          else
+            ptr->l=nn;  
+        }
       printf("Continue insert 1/0  ");
       scanf("%d",&k);  
     }while(k==1);

@@ -104,27 +104,23 @@ struct traversal* pop1()
 }
 void post_non(struct node *t)
 {	
-	ptr=t;
 	push1(1,NULL);
 	do
 	  {
-			while(ptr!=NULL)
+			for(ptr=t;ptr!=NULL;ptr=ptr->l)
 			 {
 			 	 push1(1,ptr);
 			 	 if(ptr->r!=NULL)
 			 	   push1(0,ptr->r);
-			 	 ptr=ptr->l;
 			 }
-		  temp=pop1();
-		  ptr=temp->add;
+			temp=pop1();
 			while(temp->k==1)
 			  {
-			    printf("%c ",ptr->c);
+					printf("%c ",temp->add->c);
 					temp=pop1();
-		      ptr=temp->add;	
-				}	
+				}
 			if(temp->k==0)
-				push1(1,ptr);	
+				push1(1,temp->add);	
 		}while(stack1[top1]!=NULL);
 }
 int countln(struct node *t)
@@ -168,12 +164,12 @@ int height(struct node *t)
 }
 int main()
 {
-	int k;
+	int k,choice;
 	printf("1.create 2.inorder 3.preorder 4.postorder 5.in_non 6.pre_non 7.post_non 8.height 9.leaf 10.non_leaf  ");
 	do
 	  {
-	  	scanf("%d",&k);
-	  	switch(k)
+	  	scanf("%d",&choice);
+	  	switch(choice)
 	  	  {
 	  	  	case 1: root=createbt(root);break;
 	  	  	//case 2: inorder(root);break;

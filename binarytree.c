@@ -91,7 +91,7 @@ void pre_non(struct node *t)
       ptr=ptr->l;
 	  	if(ptr==NULL)
     	  ptr=pop();
-		}
+		}	
 }
 void push1(int l,struct node *f)
 {
@@ -105,23 +105,25 @@ struct traversal* pop1()
 void post_non(struct node *t)
 {	
 	push1(1,NULL);
+	ptr=t;
 	do
 	  {
-			for(ptr=t;ptr!=NULL;ptr=ptr->l)
+			while(ptr!=NULL)
 			 {
 			 	 push1(1,ptr);
 			 	 if(ptr->r!=NULL)
 			 	   push1(0,ptr->r);
+				 ptr=ptr->l;	 
 			 }
 			temp=pop1();
-			while(temp->k==1)
+			ptr=temp->add;
+			while(temp->k==1 && ptr!=NULL)
 			  {
-					printf("%c ",temp->add->c);
+					printf("%c ",ptr->c);
 					temp=pop1();
+					ptr=temp->add;
 				}
-			if(temp->k==0)
-				push1(1,temp->add);	
-		}while(stack1[top1]!=NULL);
+		}while(ptr!=NULL);
 }
 int countln(struct node *t)
 {
@@ -138,6 +140,7 @@ int countln(struct node *t)
 	  	if(ptr==NULL)
     	  ptr=pop();
 		}
+	ptr=pop();
 	return cnt;	
 }
 int countnln(struct node *t)
@@ -156,11 +159,57 @@ int countnln(struct node *t)
 	  	if(ptr==NULL)
     	  ptr=pop();
 		}
+	ptr=pop();	
 	return cnt;	
 }
 int height(struct node *t)
 {
-	
+	int cnt=0,max=0;
+	ptr=t;
+	push(NULL);
+	while(ptr!=NULL)
+	  {
+			push(ptr);
+			cnt++;
+			ptr=ptr->l;
+			while(ptr==NULL)
+			  {
+					ptr=pop();
+					if(ptr==root)
+					  cnt=0;
+					else if(ptr->r!=NULL)
+					  cnt--;
+					ptr=ptr->r;
+					if(cnt>max)
+					  max=cnt;
+				}
+		}
+	ptr=pop();	
+	return max-1;	
+}
+void inorder(struct node *t)
+{
+	if(t==NULL)
+	  return;
+	inorder(t->l);
+	printf("%c ",t->c);
+	inorder(t->r);	
+}
+void preorder(struct node *t)
+{
+	if(t==NULL)
+	  return;
+	printf("%c ",t->c);
+	preorder(t->l);	
+	preorder(t->r);	
+}
+void postorder(struct node *t)
+{
+	if(t==NULL)
+	  return;
+	postorder(t->l);	
+	postorder(t->r);
+	printf("%c ",t->c);	
 }
 int main()
 {
@@ -172,13 +221,13 @@ int main()
 	  	switch(choice)
 	  	  {
 	  	  	case 1: root=createbt(root);break;
-	  	  	//case 2: inorder(root);break;
-	  	  	//case 3: preorder(root);break;
-	  	  	//case 4: postorder(root);break;
+	  	  	case 2: inorder(root);break;
+	  	  	case 3: preorder(root);break;
+	  	  	case 4: postorder(root);break;
 	  	  	case 5: in_non(root);break;
 	  	  	case 6: pre_non(root);break;
 	  	  	case 7: post_non(root);break;
-	  	  	//case 8: printf("Height = %d\n",height());break;
+	  	  	case 8: printf("Height = %d\n",height(root));break;
 	  	  	case 9: printf("No.of leaf node = %d\n",countln(root));break;
 	  	  	case 10: printf("No.of non leaf node = %d\n",countnln(root));break;
 	  	  	default: printf("Wrong choice\n");

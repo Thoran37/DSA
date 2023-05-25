@@ -183,8 +183,7 @@ int height(struct node *t)
 					if(cnt>max)
 					  max=cnt;
 				}
-		}
-	ptr=pop();	
+		}	
 	return max-1;	
 }
 void inorder(struct node *t)

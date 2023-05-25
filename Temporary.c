@@ -66,28 +66,27 @@ void post_non(struct node *t)
 {
 	push(NULL);
 	ptr=t;
-	abc:
-	while(ptr!=NULL)
-			 {
-				 push(ptr);
-				 if(ptr->r!=NULL)
-				   {ptr->r->x=0;
-				   push(ptr->r);  }
-				 ptr=ptr->l;
-			 }
-			ptr=pop();
-			while(ptr->x==1 && ptr!=NULL)
-			  {
-					printf("%c ",ptr->c);
+	do
+	{
+			while(ptr!=NULL)
+					 {
+						 push(ptr);
+						 if(ptr->r!=NULL)
+							 {
+								 ptr->r->x=0;
+								 push(ptr->r);  
+							 }
+						 ptr=ptr->l;
+					 }
 					ptr=pop();
-			   }
-			 if(ptr->x==0&&ptr!=NULL)
-			   {
-			     ptr->x=1;
-			     //push(ptr);
-			     goto abc;
-			   }
-
+					while(ptr->x==1 && ptr!=NULL)
+						{
+							printf("%c ",ptr->c);
+							ptr=pop();
+						 }
+					 if(ptr->x==0&&ptr!=NULL)
+						 ptr->x=1;
+	}while(ptr!=NULL);
 }
 
 void inorder(struct node *t)

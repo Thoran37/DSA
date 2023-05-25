@@ -5,15 +5,10 @@ struct node
 {
 	struct node *l,*r;
 	char c;
+	int x;
 }*root=NULL,*nn,*ptr,*stack[size];
 
-struct traversal
-{
-	int k;
-	struct node *add;
-}*temp,*stack1[size];
-
-int top=-1,top1=-1;
+int top=-1;
 
 void well()
 {
@@ -21,6 +16,7 @@ void well()
 	printf("Enter data  ");
 	fflush(stdin);
 	scanf("%c",&nn->c);
+	nn->x=1;
 }
 void push(struct node *k)
 {
@@ -93,37 +89,31 @@ void pre_non(struct node *t)
     	  ptr=pop();
 		}	
 }
-void push1(int l,struct node *f)
-{
-	stack1[++top1]->k=l;
-	stack1[top1]->add=f;
-}
-struct traversal* pop1()
-{
-	return stack1[top1--];
-}
 void post_non(struct node *t)
-{	
-	push1(1,NULL);
+{
+	push(NULL);
 	ptr=t;
 	do
-	  {
-			while(ptr!=NULL)
-			 {
-			 	 push1(1,ptr);
-			 	 if(ptr->r!=NULL)
-			 	   push1(0,ptr->r);
-				 ptr=ptr->l;	 
-			 }
-			temp=pop1();
-			ptr=temp->add;
-			while(temp->k==1 && ptr!=NULL)
-			  {
-					printf("%c ",ptr->c);
-					temp=pop1();
-					ptr=temp->add;
-				}
-		}while(ptr!=NULL);
+	{
+		while(ptr!=NULL)
+		 {
+			 push(ptr);
+			 if(ptr->r!=NULL)
+				 {
+					 ptr->r->x=0;
+					 push(ptr->r);  
+				 }
+			 ptr=ptr->l;
+		 }
+		ptr=pop();
+		while(ptr->x==1 && ptr!=NULL)
+			{
+				printf("%c ",ptr->c);
+				ptr=pop();
+			}
+	  if(ptr->x==0&&ptr!=NULL)
+		  ptr->x=1;
+	}while(ptr!=NULL);
 }
 int countln(struct node *t)
 {

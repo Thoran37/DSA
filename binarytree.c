@@ -154,27 +154,18 @@ int countnln(struct node *t)
 }
 int height(struct node *t)
 {
-	int cnt=0,max=0;
-	ptr=t;
-	push(NULL);
-	while(ptr!=NULL)
+	int left,right;
+	if(t!=NULL)
 	  {
-			push(ptr);
-			cnt++;
-			ptr=ptr->l;
-			while(ptr==NULL)
-			  {
-					ptr=pop();
-					if(ptr==root)
-					  cnt=0;
-					else if(ptr->r!=NULL)
-					  cnt--;
-					ptr=ptr->r;
-					if(cnt>max)
-					  max=cnt;
-				}
-		}	
-	return max-1;	
+	  	left=height(t->l);
+	  	right=height(t->r);
+	  	if(left>right)
+	  	  return left+1;
+	  	else
+		    return right+1;  
+		}
+	else
+	  return 0;	
 }
 void inorder(struct node *t)
 {

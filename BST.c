@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #define size 100
 struct node
   {
@@ -14,6 +13,7 @@ struct pointer
     struct node *bef;
   }well;  
 int top=-1;
+void del(int);
 void insert(int k)
 {
   int flag;
@@ -125,9 +125,35 @@ void delleaf(struct node*temp,struct node*ptr)
     ptr->l=NULL;
   free(temp);    
 }
-void deltwochild(struct node *temp,struct node *ptr)
+void deltwochild(struct node *temp)
 {
-  
+  int k,flag,j;
+  ptr=root;
+  push(NULL);
+	while(ptr!=NULL || top!=-1)
+	  {
+			while(ptr!=NULL)
+				{
+					push(ptr);
+					ptr=ptr->l;
+				}
+			ptr=pop();
+			if(ptr!=NULL)
+				{
+          if(k==1)
+            {
+              j=ptr->x;
+              del(ptr->x);
+              flag=1;
+              break;
+            }
+					if(ptr->x==temp->x)
+            k=1;
+					ptr=ptr->r;
+				}			
+		}
+  if(flag==1)
+    temp->x=j;  
 }
 void del(int k)
 {
@@ -139,7 +165,7 @@ void del(int k)
       if(temp->r==NULL && temp->l==NULL)
         delleaf(temp,ptr);
       else if(temp->r!=NULL && temp->l!=NULL)
-        deltwochild(temp,ptr);
+        deltwochild(temp);
       else
         delonechild(temp,ptr);    
     }

@@ -10,6 +10,12 @@ struct node
   }*root=NULL,*temp,*nn,*stack[size],*ptr,*nnn;
 int top=-1;
 void insert(int,int);
+void del(int);
+struct pointer
+  {
+    struct node *main;
+    struct node *bef;
+  }well;  
 void push(struct node *k)
 {
   stack[++top]=k;
@@ -184,6 +190,155 @@ void display(struct node *t)
 	display(t->r);	
 	printf("%d ",t->x);
 }
+struct pointer find(int k)
+{
+  temp=root;
+  well.main=NULL;
+  well.bef=NULL;
+  push(NULL);
+  while(temp!=NULL || top!=-1)
+    {
+      while(temp!=NULL)
+        {
+          push(temp);
+          if(temp->x==k)
+            well.bef=ptr;
+          ptr=temp;
+          temp=temp->l;
+        }
+      temp=pop();
+      if(temp!=NULL)
+        {
+          if(temp->x==k)
+            {
+              well.main=temp;
+              return well;
+            }
+          ptr=temp;  
+          temp=temp->r;
+        }			
+	  }
+  return well;  
+}
+int delonechild(struct node *temp,struct node *ptr)
+{
+  if((temp->l==NULL) && (temp->r!=NULL) && (ptr->r==temp))
+    {
+      ptr->r=temp->r;
+      temp->r=NULL;
+    }
+  else if((temp->l!=NULL) && (temp->r==NULL) && (ptr->r==temp))
+    {
+      ptr->r=temp->l;
+      temp->l=NULL;
+    }
+  else if((temp->l==NULL) && (temp->r!=NULL) && (ptr->l==temp))  
+    {
+      ptr->l=temp->r;  
+      temp->r=NULL;
+    }
+  else if((temp->l!=NULL) && (temp->r==NULL) && (ptr->l==temp))  
+    {  
+      ptr->l=temp->l;    
+      temp->l=NULL;
+    }
+  free(temp);  
+}
+void delleaf(struct node*temp,struct node*ptr)
+{
+  if(ptr->r==temp)
+    ptr->r=NULL;
+  else if(ptr->l==temp)
+    ptr->l=NULL;
+  free(temp);    
+}
+void deltwochild(struct node *temp)
+{
+  int k,flag,j;
+  ptr=root;
+  push(NULL);
+	while(ptr!=NULL || top!=-1)
+	  {
+			while(ptr!=NULL)
+				{
+					push(ptr);
+					ptr=ptr->l;
+				}
+			ptr=pop();
+			if(ptr!=NULL)
+				{
+          if(k==1)
+            {
+              j=ptr->x;
+              del(ptr->x);
+              flag=1;
+              break;
+            }
+					if(ptr->x==temp->x)
+            k=1;
+					ptr=ptr->r;
+				}			
+		}
+  if(flag==1)
+    temp->x=j;  
+}
+void R_rotation(struct node *node)
+{
+  if(bf(node->l)==0)
+    LL(node);
+  else if(bf(node->l)==1)
+    LL(node);
+  else if(bf(node->l)==-1)
+    LR(node);    
+}
+void L_rotation(struct node *node)
+{
+  if(bf(node->r)==0)
+    RR(node);
+  else if(bf(node->r)==-1)
+    RR(node);
+  else if(bf(node->r)==1)
+    RL(node);    
+}
+void del(int k)
+{
+  struct pointer t=find(k);
+  temp=t.main;
+  ptr=t.bef;
+  if(temp!=NULL)
+    {
+      if(temp->r==NULL && temp->l==NULL)
+        delleaf(temp,ptr);
+      else if(temp->r!=NULL && temp->l!=NULL)
+        deltwochild(temp);
+      else
+        delonechild(temp,ptr);    
+      ptr=root;
+      push(NULL);
+      while(ptr!=NULL || top!=-1)
+        {
+          while(ptr!=NULL)
+            {
+              push(ptr);
+              ptr=ptr->l;
+            }
+          ptr=pop();
+          if(ptr!=NULL)
+            {
+              if(!bf(ptr))
+                {
+                  if(k>ptr->x)
+                    R_rotation(ptr);
+                  else
+                    L_rotation(ptr);  
+                }
+              ptr=ptr->r;
+            }			
+        }
+    }
+  else
+    printf("The element is not present in the tree\n");  
+}
 int main()
 {
   int k;
@@ -197,7 +352,9 @@ int main()
                   printf("Enter number to insert  ");
                   scanf("%d",&k);
                   insert(k,1);break;
-          case 2:
+          case 2: printf("Enter number to delete  ");
+                  scanf("%d",&k);
+                  del(k);break;
           case 3: display(root);break;
           case 4: printf("Height of tree is %d",height(root));break;
           default: printf("Invalid Choice\n");

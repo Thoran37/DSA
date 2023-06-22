@@ -46,6 +46,5 @@ int main()
 							  printf("%d is found\n",b);  
 							t=clock()-t;
 							printf("The time taken is %f seconds\n",(float)t/CLOCKS_PER_SEC);  
-		}
-	    
+		}    
 }

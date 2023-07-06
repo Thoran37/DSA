@@ -44,7 +44,7 @@ int main()
 	    arr[i]=a[i];  
 	  }  
 	t=clock();
-	//bsort_non(a,n);
+	bsort_non(a,n);
 	t=clock()-t;
 	printf("Time in non-recursive bubble sort is %f\n",(float)t/CLOCKS_PER_SEC);
 	r=clock()-t;

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #define order 4
 struct node
 {
@@ -9,7 +10,7 @@ struct node
   struct node *cp[order];
   struct node *parent;
   struct node *next;
-}*temp,*nn,*root;
+}*temp,*nn,*root,*one;
 struct node *createnode()
 {
   nn=(struct node*)malloc(sizeof(struct node));
@@ -25,14 +26,14 @@ struct node *createnode()
 }
 void split_node(struct node *node)
 {
-  int mid = ceil((order-1)/2),i,j;
+  int mid = ceil((order-1)/2.0),i,j;
   nn=createnode();
   if(node->leaf)
     {
       if(node->parent == NULL)
         {
-          node->parent = createnode();
-          temp = node->parent;
+          temp = createnode();
+          node->parent = temp;
           if(node == root)
             root = temp;
           temp->keys[0] = node->keys[mid];
@@ -70,13 +71,13 @@ void split_node(struct node *node)
       temp->cnt++;
       node->next = nn;
       nn->parent = temp;
-      for(i=mid,j=0;i<order-1;i++,j++)
+      for(i=mid,j=0;i<order;i++,j++)
         {
           nn->keys[j] = node->keys[i];
           nn->cnt++;
+          node->cnt--;
+          node->keys[i] = 0;
         }
-      for(i = mid;i<order;i++)
-        node->keys[i] = 0;
       if(temp->cnt == order)
         split_node(temp);  
     }
@@ -131,7 +132,6 @@ void split_node(struct node *node)
           node->keys[i]=0;
         }
       nn->cp[j]=node->cp[j];  
-      
     }  
 }
 void insert(int k)
@@ -144,15 +144,24 @@ void insert(int k)
       node = root;
     }
   else 
-    while(!node->leaf)
+    for(node = root;node->leaf == 0;)
       for(i = 0;i<order-1;i++)
         {
           if(k>node->keys[i] && k<node->keys[i+1])
-            node = node->cp[i+1];
+            {
+              node = node->cp[i+1];
+              break;
+            }
           else if(k<node->keys[0])
-            node = node->cp[0];
+            {
+              node = node->cp[0];
+              break;
+            }
           else if(k>node->keys[i])
-            node = node->cp[i+1];
+            {
+              node = node->cp[i+1];
+              break;
+            }
         }
   for(i = 0;i<order;i++)
     {
@@ -185,7 +194,24 @@ void insert(int k)
   if(node->cnt == order)
     split_node(node);  
 }
+void print(struct node *node)
+{
+  int i;
+  for(i=0,temp=node;i<order-1 && temp->keys[i]!=0;i++)
+    printf("%d ",temp->keys[i]);
+  if(node->next!=NULL)
+    print(node->next);  
+}
 int main()
 {
-  
+  insert(15);
+  insert(25);
+  insert(23);
+  insert(42);
+  printf("%d    ",root->cp[1]->leaf);
+  insert(87);
+  insert(12);
+  for(temp = root;temp->cp[0]!=NULL;temp = temp->cp[0]);
+  one = temp;
+  print(one);
 }

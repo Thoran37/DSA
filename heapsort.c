@@ -57,3 +57,4 @@ int main()
 	reheap();	
 	for(i=1;i<=k;i++)
 	  printf("%d ",a[i]);	
+}

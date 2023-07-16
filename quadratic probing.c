@@ -5,7 +5,7 @@ int D,a[30],b[30],i,r,j;
 int quad_prob(int k)
 {
   r=(k+j)%D;
-  if(b[r]==0)
+  if(b[r]==0 || j>D)
     return r;
   else
     {

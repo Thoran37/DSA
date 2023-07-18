@@ -93,7 +93,15 @@ struct pointer find(int k)
 	  }
   return well;  
 }
-int delonechild(struct node *temp,struct node *ptr)
+void delleaf(struct node*temp,struct node*ptr)
+{
+  if(ptr->r==temp)
+    ptr->r=NULL;
+  else if(ptr->l==temp)
+    ptr->l=NULL;
+  free(temp);    
+}
+void delonechild(struct node *temp,struct node *ptr)
 {
   if((temp->l==NULL) && (temp->r!=NULL) && (ptr->r==temp))
     {
@@ -116,14 +124,6 @@ int delonechild(struct node *temp,struct node *ptr)
       temp->l=NULL;
     }
   free(temp);  
-}
-void delleaf(struct node*temp,struct node*ptr)
-{
-  if(ptr->r==temp)
-    ptr->r=NULL;
-  else if(ptr->l==temp)
-    ptr->l=NULL;
-  free(temp);    
 }
 void deltwochild(struct node *temp)
 {
@@ -172,18 +172,49 @@ void del(int k)
   else
     printf("The element is not present in the tree\n");  
 }
-void display(struct node *t)
+int height(struct node *t)
+{
+	int left,right;
+	if(t!=NULL)
+	  {
+	  	left=height(t->l);
+	  	right=height(t->r);
+	  	if(left>right)
+	  	  return left+1;
+	  	else
+		    return right+1;  
+		}
+	else
+	  return 0;	
+}
+void inorder(struct node *t)
 {
 	if(t==NULL)
 	  return;
-	display(t->l);
+	inorder(t->l);
 	printf("%d ",t->x);
-	display(t->r);	
+	inorder(t->r);	
+}
+void preorder(struct node *t)
+{
+	if(t==NULL)
+	  return;
+	printf("%d ",t->x);
+	preorder(t->l);	
+	preorder(t->r);	
+}
+void postorder(struct node *t)
+{
+	if(t==NULL)
+	  return;
+	postorder(t->l);	
+	postorder(t->r);
+	printf("%d ",t->x);	
 }
 int main()
 {
   int k;
-  printf("1.Insert 2.Display 3.Find 4.Delete ");
+  printf("1.Insert 2.Inorder 3.preorder 4.postorder 5.Height 6.Delete ");
   do
     {
       scanf("%d",&k);
@@ -192,14 +223,11 @@ int main()
           case 1: printf("Enter number to insert  ");
                   scanf("%d",&k);
                   insert(k);break;
-          case 2: display(root);break;
-          case 3: printf("Enter number to find  ");
-                  scanf("%d",&k);
-                  if(find(k).main!=NULL)
-                    printf("%d is in the tree\n",k);
-                  else
-                    printf("%d is not in the tree\n",k);break;  
-          case 4: printf("Enter number to delete  ");
+          case 2: inorder(root);break;
+          case 3: preorder(root);break;
+          case 4: postorder(root);break;
+          case 5: printf("Height = %d\n",height(root)); break;
+          case 6: printf("Enter number to delete  ");
                   scanf("%d",&k);
                   del(k);break;
           default: printf("Invalid choice\n");

@@ -32,10 +32,6 @@ int main()
 	int index,d,a,b,h,i,j,p,n;
 	printf("Enter no.of vertices and edges  ");
 	scanf("%d%d",&n,&p);
-//	printf("Enter matrix of input graph\n");
-//	for(int i=0;i<n;i++)
-//	  for(int j=0;j<n;j++)
-//	    scanf("%d",&a[i][j]);
 	printf("Enter source and destination of the edge  ");
 	while(p--)
 	  {
@@ -58,8 +54,8 @@ int main()
 			      enque(i);
 			      status[i]++;
 			    }
-	  }   
-	for(i=0;i<=top;i++)  
+	  }
+	for(i=0;i<top;i++)  
 	  {
 	  	d=0;
 	  	while(graph[stack[i-d]][stack[i+1]]==0)

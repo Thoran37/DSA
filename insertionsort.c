@@ -11,8 +11,8 @@ void insertion_non(int a[], int n)
 			  a[j+1]=a[j];
 			a[j+1]=t;  
 		}
-	printf("Sorted array-non recusrion\n");
-	for(int i=0;i<n;i++)
+	printf("Sorted array-non recursion\n");
+	for(i=0;i<n;i++)
 	  printf("%d ",a[i]);	
 	printf("\n");				
 }

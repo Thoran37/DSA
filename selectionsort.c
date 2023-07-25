@@ -17,8 +17,8 @@ void selection_non(int a[], int n)
 	      	a[loc]=t;
 				}    
 		}
-	printf("Sorted array-non recusrion\n");
-	for(int i=0;i<n;i++)
+	printf("Sorted array-non recursion\n");
+	for(i=0;i<n;i++)
 	  printf("%d ",a[i]);	
 	printf("\n");				
 }
@@ -54,8 +54,8 @@ int main()
 	r=clock()-t;
 	selection_rec(n,0);
 	r=clock()-r;  
-	printf("Sorted array-recusrion\n");
-	for(int i=0;i<n;i++)
+	printf("Sorted array-recursion\n");
+	for(i=0;i<n;i++)
 	  printf("%d ",arr[i]);	
 	printf("\n"); 
 	printf("Time in recursive selection sort is %f\n",(float)r/CLOCKS_PER_SEC);

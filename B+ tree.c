@@ -203,7 +203,6 @@ void print(struct node *node)
     print(node->next);  
 }
 int main()
-*/
 {
   insert(15);
   insert(25);
@@ -216,3 +215,4 @@ int main()
   one = temp;
   print(one);
 }
+*/

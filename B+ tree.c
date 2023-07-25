@@ -1,4 +1,4 @@
-#include <stdio.h>
+/* #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #define order 4
@@ -203,6 +203,7 @@ void print(struct node *node)
     print(node->next);  
 }
 int main()
+*/
 {
   insert(15);
   insert(25);

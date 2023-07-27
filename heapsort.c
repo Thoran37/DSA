@@ -1,4 +1,4 @@
-// Heap Sort
+/* // Heap Sort
 #include <stdio.h>
 #include <time.h>
 int a[100],index=1,n,h=1;
@@ -58,3 +58,4 @@ int main()
 	for(i=1;i<=k;i++)
 	  printf("%d ",a[i]);	
 }
+*/

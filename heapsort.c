@@ -11,11 +11,18 @@ void swap(int *a,int *b)
 }
 void heapsort()
 {
-  while(2*h<n)
+  while(2*h<=n)
     {  
       int max=a[2*h]>a[2*h+1]?2*h:2*h+1;
-      swap(&a[h],&a[max]);
-      h=max;
+      if(2*h==n)
+        max=2*h;
+      if(a[h]<a[max])
+        {
+          swap(&a[h],&a[max]);
+          h=max;
+        }
+      else
+        break;  
     }
 }
 void reheap()

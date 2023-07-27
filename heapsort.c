@@ -1,8 +1,6 @@
-// Heap Sort
 #include <stdio.h>
 #include <time.h>
-int a[100],ind=1,n,h=1;
-void reheap();
+int a[10],ind=1,n,h=1;
 void swap(int *a,int *b)
 {
 	int t=*a;
@@ -52,17 +50,22 @@ void insert(int k)
 }
 int main()
 {
-	int i,t,k;
+	int i,q,k;
+	clock_t t;
 	printf("Enter n  ");
 	scanf("%d",&n);
 	k=n;
-	printf("Enter numbers  ");
+	printf("Enter %d numbers  ",k);
 	for(i=0;i<n;i++)
 	  {
-	  	scanf("%d",&t);
-	  	insert(t);
+	  	scanf("%d",&q);
+	  	insert(q);
 		}
+	t=clock();	
 	reheap();	
+	t=clock()-t;
+	printf("Sorted array\n");
 	for(i=1;i<=k;i++)
 	  printf("%d ",a[i]);	
+	printf("\nTime taken by heap sort is %fs",(float)t/CLOCKS_PER_SEC);	
 }

@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-int D,a[30],b[30],i,r,j;
-
+int D,a[10],b[10],i,r,j;
 int quad_prob(int k)
 {
   r=(k+j)%D;
@@ -9,11 +7,11 @@ int quad_prob(int k)
     return r;
   else
     {
+      j++;
       j*=j;
       quad_prob(k);
     }
 }
-
 void hash()
 {
   int k;
@@ -27,7 +25,6 @@ void hash()
         b[quad_prob(k)]=a[i];  
     }
 }
-
 int main()
 {
   printf("Enter D ");

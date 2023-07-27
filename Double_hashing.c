@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-int D,a[30],b[30],i,r,j,R;
-
+int D,a[30],b[30]={0},i,r,j,R;
 int double_hash(int k, int f)
 {
   r=(k+j*(R-(f%R)))%D;
@@ -13,7 +11,6 @@ int double_hash(int k, int f)
       double_hash(k,f);
     }
 }
-
 void hash()
 {
   int k;
@@ -27,7 +24,6 @@ void hash()
         b[double_hash(k,a[i])]=a[i];  
     }
 }
-
 int main()
 {
   int flag;
@@ -51,8 +47,6 @@ int main()
           break;
         }
     }
-  for(i=0;i<D;i++)
-    b[i]=0;  
   hash();
   for(i=0;i<D;i++)
     printf("%d ",b[i]);

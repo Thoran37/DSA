@@ -1,5 +1,5 @@
 #include <stdio.h>
-int D,a[30],b[30]={0},i,r,j,R;
+int D,a[30],b[30],i,r,j,R;
 int double_hash(int k, int f)
 {
   r=(k+j*(R-(f%R)))%D;
@@ -26,12 +26,18 @@ void hash()
 }
 int main()
 {
-  int flag;
+  int flag,k;
   printf("Enter D ");
   scanf("%d",&D);
+  printf("Enter 0 to stop\n");
   printf("Enter numbers ");
-  for(i=0;i<D;i++)
-    scanf("%d",&a[i]);
+  i=0;
+  while(scanf("%d",&a[i]))
+    {
+      if(!a[i])
+        break;
+      i++;
+    }
   for(i=D-1;i>=0;i--)
     {
       flag=1;

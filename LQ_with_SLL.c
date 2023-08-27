@@ -59,19 +59,17 @@ struct node* deque(struct node*f)
 void enque(int k)
 {
   nn=(struct node*)malloc(sizeof(struct node));
+  nn->x=k;	
+  nn->link=NULL;	
   if(front==NULL)
     {
       front=nn;
-      nn->x=k;
-      front->link=NULL;
       rear=nn;
     }
   else
     {  
       rear->link=nn;
-      nn->x=k;
       rear=nn;
-      rear->link=NULL;
     }
 }
 int main()

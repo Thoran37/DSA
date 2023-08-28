@@ -152,9 +152,9 @@ void delend()
 {
 	struct node *t;
 	last->llink->rlink=NULL;
-	last->llink=NULL;
 	t=last;
 	last=last->llink;
+	t->llink=NULL;
 	free(t);
 }
 void delbeg()

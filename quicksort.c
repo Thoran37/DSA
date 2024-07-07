@@ -12,9 +12,9 @@ int partition(int lb,int ub)
 	int pivot=a[lb],left=lb+1,right=ub;
 	while(left<=right)
 		{
-			while(a[left]<=pivot)
+			while(left<=ub && a[left]<=pivot)
 				left++;
-			while(a[right]>pivot)
+			while(right>=lb && a[right]>pivot)
 				right--;
 			if(left<right)
 				swap(&a[left],&a[right]);		
